@@ -1,5 +1,6 @@
 import { join } from "path";
 import { ConnectionOptions } from "typeorm";
+import { NODE_ENV_PRODUCTION } from "./const";
 /**
 export default () => ({
     app_port: parseInt(process.env.PORT, 10) || 3000,
@@ -50,15 +51,15 @@ export default () => {
             type: 'postgres',
             autoLoadEntities: true,
             url: databaseUrl,
-            ...(process.env.NODE_ENV == 'prod') ? { ...ssl_config } : {}, // Si es prod agrego la configuracion de ssl
-            dropSchema: process.env.DATABASE_DROP_SCHEMA == 'true',
-            migrationsRun: process.env.DATABASE_MIGRATIONS_RUN == 'true',
+            ...(process.env.NODE_ENV === NODE_ENV_PRODUCTION) ? { ...ssl_config } : {}, // Si es prod agrego la configuracion de ssl
+            dropSchema: process.env.DATABASE_DROP_SCHEMA === 'true',
+            migrationsRun: process.env.DATABASE_MIGRATIONS_RUN === 'true',
             migrationsTableName: 'migrations_typeorm',
             logging: process.env.DATABASE_MIGRATIONS_LOGGIN == 'true',
             entities: [join(__dirname, '../**/**/*entity{.ts,.js}')],
-            migrations: [join(__dirname, '../migrations/**/*{.ts,.js}')],
+            migrations: [join(__dirname, '../migrations/**/*{.ts,.js}')], // Se usa para indicar el directorio donde se generaran las migraciones
             cli: {
-                migrationsDir: 'migrations',  // Se usa para indicar el directorio donde se encuentran las migraciones cuando el cli de typeorm ejecuta estas
+                migrationsDir: 'migrations',  // Se usa para indicar el directorio donde se guardan las migraciones cuando el cli de typeorm ejecuta estas
             },
         } as ConnectionOptions,
         jwt: {
