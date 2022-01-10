@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, ClassSerializerInterceptor, ParseIntPipe, UseGuards, Version } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, ClassSerializerInterceptor, ParseIntPipe, UseGuards, Version, UploadedFile } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -11,6 +11,9 @@ import { Roles } from 'src/roles/roles.decorators';
 import { Role } from 'src/roles/role.enum';
 import { RolesGuard } from 'src/common/roles.guard';
 import { UserResponseDto } from './dto/user-response.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import * as fs from 'fs';
 
 @ApiTags('users')
 @ApiBearerAuth('JWT')
@@ -56,5 +59,20 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
+  }
+
+
+  @Post(':username/profile-picture')
+  @UseInterceptors(
+    /*FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './files',
+      }),
+    })*/
+    FileInterceptor('file')
+  )
+  uploadPicture(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
+    fs.writeFileSync("new-image.png", file.buffer.toString());
   }
 }

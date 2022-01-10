@@ -10,9 +10,13 @@ import { CategoriesModule } from './categories/categories.module';
 import configuration from './config/configuration';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './common/roles.guard';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
+    MulterModule.register({
+      dest: './files',
+    }),
     ConfigModule.forRoot({
       load: [configuration],
       isGlobal: true,
