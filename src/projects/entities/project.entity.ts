@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
-import { Category } from "src/categories/entities/category.entity";
+import { ICategory } from "src/categories/entities/category.entity";
 import { User } from "src/users/entities/user.entity";
 import { WorkTimeLog } from "src/work-time-logs/entities/work-time-log.entity";
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
@@ -48,8 +48,8 @@ export class Project {
         inverseJoinColumn: { name: 'categoryId', referencedColumnName: 'id' }
     })
     @ManyToMany(
-        () => Category,        
+        'ICategory',        
         { eager: true }
     )
-    categories?: Category[];
+    categories?: ICategory[];
 }
