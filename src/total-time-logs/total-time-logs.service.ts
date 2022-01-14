@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Project } from 'src/projects/entities/project.entity';
-import { User } from 'src/users/entities/user.entity';
-import { WorkTimeLogsService } from 'src/work-time-logs/work-time-logs.service';
+import { Project } from '../projects/entities/project.entity';
+import { User } from '../users/entities/user.entity';
+import { WorkTimeLogsService } from '../work-time-logs/work-time-logs.service';
 import { CreateTotalTimeLogDto } from './dto/create-total-time-log.dto';
 import { UpdateTotalTimeLogDto } from './dto/update-total-time-log.dto';
 import { TotalTimeLog } from './entities/total-time-log.entity';

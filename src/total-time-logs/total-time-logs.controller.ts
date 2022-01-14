@@ -3,9 +3,9 @@ import { TotalTimeLogsService } from './total-time-logs.service';
 import { CreateTotalTimeLogDto } from './dto/create-total-time-log.dto';
 import { UpdateTotalTimeLogDto } from './dto/update-total-time-log.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { AuthUser } from 'src/common/auth-user.decorator';
-import { User } from 'src/users/entities/user.entity';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { AuthUser } from '../common/auth-user.decorator';
+import { User } from '../users/entities/user.entity';
 import { createReadStream } from 'fs';
 import { join } from 'path';
 
