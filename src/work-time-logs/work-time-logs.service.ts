@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Project } from 'src/projects/entities/project.entity';
-import { ProjectsService } from 'src/projects/projects.service';
-import { User } from 'src/users/entities/user.entity';
+import { Project } from '../projects/entities/project.entity';
+import { ProjectsService } from '../projects/projects.service';
+import { User } from '../users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateWorkTimeLogDto } from './dto/create-work-time-log.dto';
 import { UpdateWorkTimeLogDto } from './dto/update-work-time-log.dto';

@@ -7,7 +7,13 @@ import { ProjectsService } from './projects.service';
 import { ProjectsServiceMock } from './mocks/projects-service.mock';
 import { Project } from './entities/project.entity';
 
-describe('ProjectsController', () => {
+const projectRepositoryMock = {
+  find: jest.fn().mockImplementation(()=> {
+    return {};
+  })
+}
+
+describe('ProjectsService', () => {
   let controller: ProjectsController;
   let service: ProjectsService;
   //const projectsServiceMock = {}
@@ -33,27 +39,20 @@ describe('ProjectsController', () => {
     
     const module: TestingModule = await Test.createTestingModule({
       imports: [],
-      controllers: [ProjectsController],
+      controllers: [],
       providers:[ProjectsService],
     })
-    //.overrideProvider(ProjectsService).useValue(projectsServiceMock)
-    .overrideProvider(ProjectsService).useClass(ProjectsServiceMock)
+    .overrideProvider(ProjectsService).useValue(projectRepositoryMock)
+    //.overrideProvider(ProjectsService).useClass(ProjectsServiceMock)
     // .overrideGuard(JwtAuthGuard).useValue(mockJwtAuthGuard)
     .compile();
 
-    controller = module.get<ProjectsController>(ProjectsController);
+    // controller = module.get<ProjectsController>(ProjectsController);
     service = module.get<ProjectsService>(ProjectsService);
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(service).toBeDefined();
   });
 
-  it('should get Projects', async () => {
-    expect(await controller.getManyProjects(authUserMock, null)).toBeInstanceOf(Array);
-  })
-
-  it('should get One Projects', async () => {
-    expect(await (await controller.getOneProject(authUserMock, 0)).id).toEqual(1);
-  })
 });
